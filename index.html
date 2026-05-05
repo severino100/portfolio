@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -115,10 +115,21 @@ em {
   z-index: 50;
   mix-blend-mode: difference;
   color: #fff;
+  transition: background 400ms ease, color 400ms ease, padding 400ms ease, border-color 400ms ease, backdrop-filter 400ms ease;
 }
+.topnav.is-scrolled {
+  mix-blend-mode: normal;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 40px;
+}
+.topnav.is-scrolled .topnav__sq { background: var(--ink); }
 .topnav a { color: inherit; text-decoration: none; }
 .topnav__mark { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
-.topnav__sq { width: 9px; height: 9px; background: #fff; display: inline-block; }
+.topnav__sq { width: 9px; height: 9px; background: #fff; display: inline-block; transition: background 400ms ease; }
 .topnav__links { display: flex; gap: 24px; }
 .topnav__links a { font-size: 11px; transition: opacity 200ms; }
 .topnav__links a:hover { opacity: 0.5; }
@@ -311,7 +322,7 @@ em {
     "facts portrait";
   gap: 64px 80px;
 }
-.about__title { grid-area: title; font-size: clamp(36px, 5.5vw, 76px); margin: 0 0 32px; max-width: 18ch; text-wrap: balance; }
+.about__title { grid-area: title; font-size: clamp(52px, 8vw, 120px); margin: 0 0 32px; text-wrap: balance; }
 .about__body { grid-area: body; font-size: 18px; line-height: 1.7; color: var(--ink-2); }
 
 .about__portrait { grid-area: portrait; align-self: start; position: sticky; top: 80px; }
@@ -378,7 +389,7 @@ em {
 
 /* ---------- WORK / TIMELINE ---------- */
 .work { padding: 100px 0 120px; }
-.work__title { font-size: clamp(36px, 5.5vw, 76px); margin: 0 0 12px; max-width: 16ch; }
+.work__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 12px; }
 .work__hint { color: var(--muted); margin: 0 0 56px; }
 
 .timeline { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -493,7 +504,7 @@ em {
 
 /* ---------- SKILLS ---------- */
 .skills { padding: 100px 0 120px; }
-.skills__title { font-size: clamp(36px, 5.5vw, 76px); margin: 0 0 56px; max-width: 14ch; }
+.skills__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 56px; }
 .skills__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 80px; }
 .skill-group__head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 24px; gap: 16px; }
 .skill-group__title { font-family: var(--serif); font-size: 26px; margin: 0; font-weight: 400; }
@@ -562,7 +573,7 @@ em {
 
 /* ---------- PERSONAL PROJECTS ---------- */
 .pp { padding: 100px 0 60px; }
-.pp__title { font-size: clamp(40px, 6vw, 88px); margin: 0 0 16px; max-width: 18ch; line-height: 1; }
+.pp__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 16px; line-height: 1; }
 .pp__hint { color: var(--muted); margin: 0 0 56px; }
 
 .pp__grid {
@@ -636,7 +647,7 @@ em {
 
 /* ---------- LIFE: HOBBIES + ACADEMY ---------- */
 .life { padding: 100px 0 80px; }
-.life__title { font-size: clamp(36px, 5vw, 72px); margin: 0 0 56px; max-width: 22ch; line-height: 1.05; }
+.life__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 56px; line-height: 1.05; }
 
 .life__grid {
   display: grid;
@@ -2144,7 +2155,7 @@ function PortraitInterlude({ t }) {
 }
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "light",
+  "theme": "dark",
   "lang": "en"
 }/*EDITMODE-END*/;
 
@@ -2158,6 +2169,13 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { const id = setTimeout(() => setLoaded(true), 80); return () => clearTimeout(id); }, []);
 
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const toggleLang = () => setTweak("lang", lang === "en" ? "pt" : "en");
 
   return (
@@ -2168,7 +2186,7 @@ function App() {
 
       <Cursor />
 
-      <nav className="topnav">
+      <nav className={`topnav${scrolled ? " is-scrolled" : ""}`}>
         <a href="#" className="topnav__mark mono">
           <span className="topnav__sq" />
           <span>RS &mdash; Portfolio &rsquo;26</span>
