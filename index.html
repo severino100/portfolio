@@ -754,6 +754,37 @@ em {
   .foot__contact { align-items: flex-start; }
 }
 
+/* ---------- MOBILE NAV OVERLAY (sibling to nav, avoids stacking-context trap) ---------- */
+.mobile-nav {
+  display: none;
+}
+@media (max-width: 600px) {
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    background: var(--bg);
+    color: var(--ink);
+    z-index: 49; /* below nav (50) so burger stays on top */
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: opacity 320ms ease, transform 320ms cubic-bezier(0.2,0.7,0.2,1);
+  }
+  .mobile-nav.is-open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .mobile-nav a { color: var(--ink); text-decoration: none; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--mono); transition: opacity 200ms; }
+  .mobile-nav a:hover { opacity: 0.5; }
+  .mobile-nav .lang-toggle { font-size: 11px; }
+}
+
 /* ---------- HAMBURGER + MOBILE NAV ---------- */
 .nav-burger {
   display: none;
@@ -782,28 +813,8 @@ em {
 @media (max-width: 600px) {
   .nav-burger { display: flex; }
 
-  .topnav__links {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 36px;
-    background: var(--bg);
-    color: var(--ink);
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(-16px);
-    transition: opacity 320ms ease, transform 320ms cubic-bezier(0.2,0.7,0.2,1);
-  }
-  .topnav__links.is-open {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-  .topnav__links a,
-  .topnav__links .lang-toggle { font-size: 14px; letter-spacing: 0.14em; }
+  /* hide desktop links on mobile — overlay handles them */
+  .topnav__links { display: none !important; }
 
   .topnav.menu-open {
     mix-blend-mode: normal;
@@ -2297,14 +2308,14 @@ function App() {
           <span className="topnav__sq" />
           <span>RS &mdash; Portfolio &rsquo;26</span>
         </a>
-        <div className={`topnav__links${menuOpen ? " is-open" : ""}`}>
-          <a href="#about" className="mono small" onClick={closeMenu}>{t.nav.about}</a>
-          <a href="#work" className="mono small" onClick={closeMenu}>{t.nav.work}</a>
-          <a href="#projects" className="mono small" onClick={closeMenu}>{t.nav.projects}</a>
-          <a href="#life" className="mono small" onClick={closeMenu}>{t.nav.life}</a>
-          <a href="#skills" className="mono small" onClick={closeMenu}>{t.nav.skills}</a>
-          <a href="mailto:rubenfranciscos@gmail.com" className="mono small" onClick={closeMenu}>{t.nav.contact}</a>
-          <button className="lang-toggle mono small" onClick={() => { toggleLang(); closeMenu(); }} aria-label="Toggle language">
+        <div className="topnav__links">
+          <a href="#about" className="mono small">{t.nav.about}</a>
+          <a href="#work" className="mono small">{t.nav.work}</a>
+          <a href="#projects" className="mono small">{t.nav.projects}</a>
+          <a href="#life" className="mono small">{t.nav.life}</a>
+          <a href="#skills" className="mono small">{t.nav.skills}</a>
+          <a href="mailto:rubenfranciscos@gmail.com" className="mono small">{t.nav.contact}</a>
+          <button className="lang-toggle mono small" onClick={toggleLang} aria-label="Toggle language">
             <span className={lang === "en" ? "is-active" : ""}>EN</span>
             <span className="lang-toggle__sep">/</span>
             <span className={lang === "pt" ? "is-active" : ""}>PT</span>
@@ -2314,6 +2325,21 @@ function App() {
           <span /><span /><span />
         </button>
       </nav>
+
+      {/* Mobile nav overlay — rendered outside <nav> to avoid backdrop-filter stacking context */}
+      <div className={`mobile-nav${menuOpen ? " is-open" : ""}`} aria-hidden={!menuOpen}>
+        <a href="#about" onClick={closeMenu}>{t.nav.about}</a>
+        <a href="#work" onClick={closeMenu}>{t.nav.work}</a>
+        <a href="#projects" onClick={closeMenu}>{t.nav.projects}</a>
+        <a href="#life" onClick={closeMenu}>{t.nav.life}</a>
+        <a href="#skills" onClick={closeMenu}>{t.nav.skills}</a>
+        <a href="mailto:rubenfranciscos@gmail.com" onClick={closeMenu}>{t.nav.contact}</a>
+        <button className="lang-toggle mono small" onClick={() => { toggleLang(); closeMenu(); }} aria-label="Toggle language">
+          <span className={lang === "en" ? "is-active" : ""}>EN</span>
+          <span className="lang-toggle__sep">/</span>
+          <span className={lang === "pt" ? "is-active" : ""}>PT</span>
+        </button>
+      </div>
 
       <main className="page">
         <Hero t={t} />
