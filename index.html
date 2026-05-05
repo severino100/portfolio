@@ -755,34 +755,74 @@ em {
 }
 
 /* ---------- MOBILE NAV OVERLAY (sibling to nav, avoids stacking-context trap) ---------- */
-.mobile-nav {
-  display: none;
-}
+.mobile-nav { display: none; }
+
 @media (max-width: 600px) {
   .mobile-nav {
     display: flex;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 36px;
+    padding: 80px 32px 40px;
     background: var(--bg);
     color: var(--ink);
-    z-index: 49; /* below nav (50) so burger stays on top */
+    z-index: 49;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(-16px);
-    transition: opacity 320ms ease, transform 320ms cubic-bezier(0.2,0.7,0.2,1);
+    transform: translateY(-10px);
+    transition: opacity 360ms ease, transform 360ms cubic-bezier(0.2,0.7,0.2,1);
   }
-  .mobile-nav.is-open {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
+  .mobile-nav.is-open { opacity: 1; transform: none; pointer-events: auto; }
+
+  .mobile-nav__links { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .mobile-nav__link {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    transition: padding-left 300ms cubic-bezier(0.2,0.7,0.2,1);
   }
-  .mobile-nav a { color: var(--ink); text-decoration: none; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; font-family: var(--mono); transition: opacity 200ms; }
-  .mobile-nav a:hover { opacity: 0.5; }
-  .mobile-nav .lang-toggle { font-size: 11px; }
+  .mobile-nav__link:first-child { border-top: 1px solid var(--line); }
+  .mobile-nav__link:active { padding-left: 8px; }
+
+  .mobile-nav__num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    width: 24px;
+  }
+  .mobile-nav__label {
+    font-family: var(--serif);
+    font-size: clamp(28px, 9vw, 42px);
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .mobile-nav__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 28px;
+  }
+  .mobile-nav__copy { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* clear nav background when menu open so it blends cleanly */
+  .topnav.menu-open {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+    mix-blend-mode: normal;
+    color: var(--ink);
+  }
+  .topnav.menu-open .topnav__sq { background: var(--ink); }
 }
 
 /* ---------- HAMBURGER + MOBILE NAV ---------- */
@@ -815,12 +855,6 @@ em {
 
   /* hide desktop links on mobile — overlay handles them */
   .topnav__links { display: none !important; }
-
-  .topnav.menu-open {
-    mix-blend-mode: normal;
-    color: var(--ink);
-  }
-  .topnav.menu-open .topnav__sq { background: var(--ink); }
 
   /* section spacing */
   .about { padding: 60px 0 72px; }
@@ -2344,17 +2378,32 @@ function App() {
 
       {/* Mobile nav overlay — rendered outside <nav> to avoid backdrop-filter stacking context */}
       <div className={`mobile-nav${menuOpen ? " is-open" : ""}`} aria-hidden={!menuOpen}>
-        <a href="#about" onClick={closeMenu}>{t.nav.about}</a>
-        <a href="#work" onClick={closeMenu}>{t.nav.work}</a>
-        <a href="#projects" onClick={closeMenu}>{t.nav.projects}</a>
-        <a href="#life" onClick={closeMenu}>{t.nav.life}</a>
-        <a href="#skills" onClick={closeMenu}>{t.nav.skills}</a>
-        <a href="mailto:rubenfranciscos@gmail.com" onClick={closeMenu}>{t.nav.contact}</a>
-        <button className="lang-toggle mono small" onClick={() => { toggleLang(); closeMenu(); }} aria-label="Toggle language">
-          <span className={lang === "en" ? "is-active" : ""}>EN</span>
-          <span className="lang-toggle__sep">/</span>
-          <span className={lang === "pt" ? "is-active" : ""}>PT</span>
-        </button>
+        <nav className="mobile-nav__links">
+          {[
+            ["#about",   "01", t.nav.about],
+            ["#work",    "02", t.nav.work],
+            ["#projects","03", t.nav.projects],
+            ["#life",    "04", t.nav.life],
+            ["#skills",  "05", t.nav.skills],
+          ].map(([href, num, label]) => (
+            <a key={href} href={href} className="mobile-nav__link" onClick={closeMenu}>
+              <span className="mobile-nav__num">{num}</span>
+              <span className="mobile-nav__label">{label}</span>
+            </a>
+          ))}
+          <a href="mailto:rubenfranciscos@gmail.com" className="mobile-nav__link" onClick={closeMenu}>
+            <span className="mobile-nav__num">↗</span>
+            <span className="mobile-nav__label">{t.nav.contact}</span>
+          </a>
+        </nav>
+        <div className="mobile-nav__foot">
+          <button className="lang-toggle mono small" onClick={() => { toggleLang(); closeMenu(); }} aria-label="Toggle language">
+            <span className={lang === "en" ? "is-active" : ""}>EN</span>
+            <span className="lang-toggle__sep">/</span>
+            <span className={lang === "pt" ? "is-active" : ""}>PT</span>
+          </button>
+          <span className="mobile-nav__copy">RS · 2026</span>
+        </div>
       </div>
 
       <main className="page">
