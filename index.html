@@ -530,7 +530,7 @@ em {
   margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--line);
   display: grid; grid-template-columns: 140px 1fr; gap: 40px; align-items: start;
 }
-.lang-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.lang-row { display: flex; flex-direction: column; gap: 18px; }
 .lang { display: grid; gap: 10px; }
 .lang__head { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .lang__name { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
@@ -748,7 +748,7 @@ em {
   .life__grid { grid-template-columns: 1fr; gap: 48px; padding-top: 32px; }
   .acad { padding: 24px; }
   .languages { grid-template-columns: 1fr; gap: 16px; }
-  .lang-row { grid-template-columns: 1fr; gap: 20px; }
+  .lang-row { gap: 18px; }
   .topnav.is-scrolled { padding: 14px 20px; }
   .foot__grid { grid-template-columns: 1fr; }
   .foot__contact { align-items: flex-start; }
@@ -2139,13 +2139,29 @@ function Skills({ t }) {
 }
 
 function Lang({ name, level, pct }) {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => setShown(pct), 80); io.disconnect(); } });
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [pct]);
   return (
-    <div className="lang">
-      <div className="lang__head">
-        <span className="lang__name">{name}</span>
-        <span className="mono small">{level}</span>
+    <div className="skill" ref={ref}>
+      <div className="skill__head">
+        <span className="skill__name">{name}</span>
+        <span className="mono small skill__years">{level}</span>
       </div>
-      <div className="lang__bar"><span style={{ width: `${pct * 100}%` }} /></div>
+      <div className="skill__bar" aria-hidden="true">
+        <span className="skill__fill" style={{ transform: `scaleX(${shown})` }} />
+        <span className="skill__ticks">
+          {Array.from({ length: 24 }).map((_, i) => <span key={i} />)}
+        </span>
+      </div>
     </div>
   );
 }
