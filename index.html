@@ -205,11 +205,12 @@ em {
 }
 
 .hero__role {
-  display: grid; grid-template-columns: repeat(2, 1fr);
+  display: flex;
   gap: 24px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   padding: 22px 0;
+  align-items: baseline;
 }
 .role-line { display: flex; flex-direction: column; gap: 8px; }
 .role-line .tag { color: var(--muted); }
@@ -417,12 +418,14 @@ em {
 .tl__year { color: var(--muted); }
 .tl__co { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .tl__co-logo {
-  width: auto; height: 40px;
-  max-width: 180px;
+  width: auto; height: 36px;
+  max-width: 160px;
   object-fit: contain;
   flex-shrink: 0;
+  background: #fff;
+  padding: 5px 10px;
 }
-[data-theme="dark"] .tl__co-logo { filter: brightness(1.05); }
+[data-theme="dark"] .tl__co-logo { filter: none; }
 .tl__co-name { font-family: var(--serif); font-size: clamp(28px, 3.6vw, 44px); line-height: 1; margin: 0 0 4px; font-weight: 400; }
 .tl__role { font-size: 14px; color: var(--ink-2); }
 .tl__location { color: var(--muted); text-align: right; }
@@ -1550,16 +1553,6 @@ function Hero({ t }) {
               </span>
               <span> {t.hero.atCo} <em>Six&#8209;Factor</em></span>
             </span>
-          </div>
-          <div className="role-line role-line--tech">
-            <span className="mono tag">{t.hero.techLabel}</span>
-            <div className="tech-strip">
-              {TECH.map((tech, i) => (
-                <div key={tech.name} className="tech-badge" style={{ animationDelay: `${1100 + i * 90}ms` }} title={tech.name}>
-                  <img src={tech.src} alt={tech.name} />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
