@@ -1,0 +1,48 @@
+<section class="life reveal-section" id="life" data-screen-label="05 Life & Schooling">
+  <header class="section-head">
+    <span class="mono small num">{{ i18n.t().life.num }}</span>
+    <span class="mono small label">{{ i18n.t().life.label }}</span>
+    <span class="section-head__rule"></span>
+  </header>
+
+  <h2 class="life__title display" [innerHTML]="i18n.t().life.title"></h2>
+
+  <div class="life__grid">
+    <div class="life__col">
+      <h3 class="life__col-title mono small">{{ i18n.t().life.hobbiesLabel }}</h3>
+      <ul class="hobbies">
+        @for (h of hobbies; track h.id) {
+          <li class="hobby">
+            <span class="hobby__icon" aria-hidden="true">{{ h.icon }}</span>
+            <div class="hobby__main">
+              <span class="hobby__label">{{ h.label[i18n.lang()] }}</span>
+              <span class="hobby__blurb">{{ h.blurb[i18n.lang()] }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="life__col">
+      <h3 class="life__col-title mono small">{{ i18n.t().life.academyLabel }}</h3>
+      <ul class="academy">
+        @for (a of academy; track a.id) {
+          <li class="acad">
+            <div class="acad__head">
+              <span class="mono small acad__period">{{ a.period[i18n.lang()] }}</span>
+              <span class="mono small acad__location">{{ a.location }}</span>
+            </div>
+            <h4 class="acad__school">{{ a.school }}</h4>
+            <span class="acad__qual">{{ a.qualification }}</span>
+            <span class="acad__course mono small">↳ {{ a.course }}</span>
+            <ul class="acad__points">
+              @for (pt of a.points[i18n.lang()]; track pt) {
+                <li>{{ pt }}</li>
+              }
+            </ul>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

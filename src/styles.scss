@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+/* ── Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', 'Fira Code', monospace;
+
+  /* light theme (default) */
+  --bg: #f5f3ee;
+  --ink: #1a1714;
+  --ink-2: #4a4540;
+  --muted: #8a8278;
+  --line: #dedad4;
+  --accent: #b05c2e;
+  --surface: #eceae4;
+}
+
+[data-theme='dark'] {
+  --bg: #141210;
+  --ink: #f0ece4;
+  --ink-2: #b0aa9e;
+  --muted: #706860;
+  --line: #2a2620;
+  --accent: #d4784a;
+  --surface: #1e1c18;
+}
+
+/* ── Reset & base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── Typography helpers ─────────────────────────────────────────────── */
+em { font-style: italic; }
+
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.italic { font-style: italic; }
+
+.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+}
+
+.small { font-size: 12px; }
+
+.num { color: var(--muted); }
+.label { color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.12em; }
+
+/* ── Custom cursor ──────────────────────────────────────────────────── */
+* { cursor: none !important; }
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Selection ──────────────────────────────────────────────────────── */
+::selection { background: var(--accent); color: #fff; }

@@ -1,0 +1,61 @@
+<section class="work reveal-section" id="work" data-screen-label="03 Work">
+  <header class="section-head">
+    <span class="mono small num">{{ i18n.t().work.num }}</span>
+    <span class="mono small label">{{ i18n.t().work.label }}</span>
+    <span class="section-head__rule"></span>
+  </header>
+
+  <h2 class="work__title display" [innerHTML]="i18n.t().work.title"></h2>
+  <p class="mono small work__hint">{{ i18n.t().work.hint }}</p>
+
+  <ol class="timeline">
+    @for (entry of entries; track entry.co + entry.period.en; let i = $index) {
+      <li class="tl" [class.is-open]="openStates()[i]">
+        <button class="tl__head" (click)="toggle(i)" [attr.aria-expanded]="openStates()[i]">
+          <div class="tl__year mono small">{{ entry.period[i18n.lang()] }}</div>
+          <div class="tl__co">
+            @if (entry.logo) {
+              <img class="tl__co-logo" [src]="entry.logo" [alt]="entry.co" />
+            } @else {
+              <h3 class="tl__co-name">{{ entry.co }}</h3>
+            }
+            <span class="tl__role">{{ entry.role[i18n.lang()] }}</span>
+          </div>
+          <div class="tl__location mono small">{{ entry.location }}</div>
+          <div class="tl__chev" aria-hidden="true"><span></span><span></span></div>
+        </button>
+
+        <div class="tl__body">
+          <p class="tl__blurb">{{ entry.blurb[i18n.lang()] }}</p>
+          <ul class="tl__projects">
+            @for (proj of entry.projects; track proj.client) {
+              <li class="proj">
+                <div class="proj__logo">
+                  @if (proj.logo) {
+                    <img [src]="proj.logo" [alt]="proj.client" />
+                  } @else {
+                    <span class="proj__logo-placeholder mono small">{{ initials(proj.client) }}</span>
+                  }
+                </div>
+                <div class="proj__main">
+                  <div class="proj__head">
+                    <span class="mono small proj__client">{{ proj.client }}</span>
+                    <span class="proj__title">{{ proj.title[i18n.lang()] }}</span>
+                  </div>
+                  <div class="proj__meta">
+                    <div class="proj__stack">
+                      @for (s of proj.stack; track s) {
+                        <span class="chip mono">{{ s }}</span>
+                      }
+                    </div>
+                    <span class="proj__note mono small">{{ proj.note[i18n.lang()] }}</span>
+                  </div>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      </li>
+    }
+  </ol>
+</section>

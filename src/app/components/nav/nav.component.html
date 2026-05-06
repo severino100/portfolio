@@ -1,0 +1,46 @@
+<nav [class.is-scrolled]="scrolled()" [class.menu-open]="menuOpen()">
+  <a href="#" class="topnav__mark mono" (click)="closeMenu()">
+    <span class="topnav__sq"></span>
+    <span>RS &mdash; Portfolio &rsquo;26</span>
+  </a>
+
+  <div class="topnav__links">
+    @for (link of navLinks; track link.key) {
+      <a [href]="link.href" class="mono small">{{ i18n.t().nav[link.key] }}</a>
+    }
+    <a href="mailto:rubenfranciscos@gmail.com" class="mono small">{{ i18n.t().nav.contact }}</a>
+    <button class="lang-toggle mono small" (click)="toggleLang()" aria-label="Toggle language">
+      <span [class.is-active]="i18n.lang() === 'en'">EN</span>
+      <span class="lang-toggle__sep">/</span>
+      <span [class.is-active]="i18n.lang() === 'pt'">PT</span>
+    </button>
+  </div>
+
+  <button class="nav-burger" [class.is-open]="menuOpen()" (click)="toggleMenu()" aria-label="Toggle menu" [attr.aria-expanded]="menuOpen()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay — sibling to nav so backdrop-filter doesn't trap it -->
+<div class="mobile-nav" [class.is-open]="menuOpen()" [attr.aria-hidden]="!menuOpen()">
+  <nav class="mobile-nav__links">
+    @for (link of navLinks; track link.key) {
+      <a [href]="link.href" class="mobile-nav__link" (click)="closeMenu()">
+        <span class="mobile-nav__num">{{ link.num }}</span>
+        <span class="mobile-nav__label">{{ i18n.t().nav[link.key] }}</span>
+      </a>
+    }
+    <a href="mailto:rubenfranciscos@gmail.com" class="mobile-nav__link" (click)="closeMenu()">
+      <span class="mobile-nav__num">↗</span>
+      <span class="mobile-nav__label">{{ i18n.t().nav.contact }}</span>
+    </a>
+  </nav>
+  <div class="mobile-nav__foot">
+    <button class="lang-toggle mono small" (click)="toggleLang()" aria-label="Toggle language">
+      <span [class.is-active]="i18n.lang() === 'en'">EN</span>
+      <span class="lang-toggle__sep">/</span>
+      <span [class.is-active]="i18n.lang() === 'pt'">PT</span>
+    </button>
+    <span class="mobile-nav__copy">RS · 2026</span>
+  </div>
+</div>

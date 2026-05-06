@@ -1,0 +1,56 @@
+<section class="skills reveal-section" id="skills" data-screen-label="06 Skills">
+  <header class="section-head">
+    <span class="mono small num">{{ i18n.t().skills.num }}</span>
+    <span class="mono small label">{{ i18n.t().skills.label }}</span>
+    <span class="section-head__rule"></span>
+  </header>
+
+  <h2 class="skills__title display" [innerHTML]="i18n.t().skills.title"></h2>
+
+  <div class="skills__grid">
+    @for (group of groups; track group.title) {
+      <div class="skill-group">
+        <div class="skill-group__head">
+          <h3 class="skill-group__title">{{ group.title }}</h3>
+          <p class="mono small">{{ group.note }}</p>
+        </div>
+        <div class="skill-group__items">
+          @for (item of group.items; track item.name) {
+            <div class="skill" #skillBar>
+              <div class="skill__head">
+                <span class="skill__name">{{ item.name }}</span>
+                <span class="mono small skill__years">{{ item.years }}</span>
+              </div>
+              <div class="skill__bar" aria-hidden="true">
+                <span class="skill__fill" [style.transform]="'scaleX(' + getLevel(item.name) + ')'"></span>
+                <span class="skill__ticks">
+                  @for (t of ticks; track $index) { <span></span> }
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="languages">
+    <span class="mono small">{{ i18n.t().skills.languages }}</span>
+    <div class="lang-row">
+      @for (lang of langs; track lang.name) {
+        <div class="skill" #skillBar>
+          <div class="skill__head">
+            <span class="skill__name">{{ lang.name }}</span>
+            <span class="mono small skill__years">{{ lang.level }}</span>
+          </div>
+          <div class="skill__bar" aria-hidden="true">
+            <span class="skill__fill" [style.transform]="'scaleX(' + getLevel(lang.name) + ')'"></span>
+            <span class="skill__ticks">
+              @for (t of ticks; track $index) { <span></span> }
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

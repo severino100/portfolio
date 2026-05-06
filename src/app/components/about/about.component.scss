@@ -1,0 +1,27 @@
+.about { padding: 100px 0 120px; }
+.about__grid {
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  grid-template-areas: "title title" "body portrait" "facts portrait";
+  gap: 64px 80px;
+}
+.about__title { grid-area: title; font-size: clamp(52px, 8vw, 120px); margin: 0 0 32px; text-wrap: balance; }
+.about__body { grid-area: body; font-size: 18px; line-height: 1.7; color: var(--ink-2); }
+.about__portrait { grid-area: portrait; align-self: start; position: sticky; top: 80px; }
+.about__portrait-frame { aspect-ratio: 4/5; overflow: hidden; background: var(--bg-2); position: relative; }
+.about__portrait-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 200ms linear; filter: contrast(1.02); }
+.about__portrait-meta { display: flex; justify-content: space-between; padding-top: 12px; }
+.about__facts { grid-area: facts; border-top: 1px solid var(--line); display: grid; align-content: start; align-self: start; }
+.fact { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.fact .small { color: var(--muted); }
+.fact__v { font-family: var(--serif); font-size: 20px; line-height: 1.2; }
+
+@media (max-width: 900px) {
+  .about__grid { grid-template-columns: 1fr; grid-template-areas: "title" "portrait" "body" "facts"; gap: 32px; }
+  .about__portrait { position: relative; top: 0; }
+}
+@media (max-width: 600px) {
+  .about { padding: 60px 0 72px; }
+  .about__body { font-size: 16px; }
+  .fact { grid-template-columns: 80px 1fr; gap: 10px; }
+  .fact__v { font-size: 16px; }
+}

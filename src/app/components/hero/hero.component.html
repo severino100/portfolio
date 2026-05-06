@@ -1,0 +1,54 @@
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero__grid" aria-hidden="true">
+    @for (col of [0,1,2,3,4,5,6,7,8,9,10,11]; track col) {
+      <div class="hero__col"></div>
+    }
+  </div>
+
+  <div class="hero__meta">
+    <span class="mono small">{{ i18n.t().hero.portfolio }}</span>
+    <span class="mono small blink-dot">{{ i18n.t().hero.available }}</span>
+    <span class="mono small">{{ i18n.t().hero.location }}</span>
+  </div>
+
+  <div class="hero__stack">
+    <div class="reveal" [class.is-in]="phase() >= 1">
+      <h1 class="display hero__name" [style.transform]="'translate(' + (mouseX() * -8) + 'px, ' + (mouseY() * -6) + 'px)'">
+        <span class="display__line letters">
+          @for (letter of letters('Ruben'); track $index) {
+            <span class="letter" [style.animation-delay]="($index * 60) + 'ms'">{{ letter }}</span>
+          }
+        </span>
+        <span class="display__line italic letters">
+          @for (letter of letters('Severino'); track $index) {
+            <span class="letter" [style.animation-delay]="($index * 60) + 'ms'">{{ letter }}</span>
+          }<span class="dot">.</span>
+        </span>
+      </h1>
+    </div>
+
+    <div class="hero__role reveal-up" [class.is-in]="phase() >= 2">
+      <div class="role-line">
+        <span class="mono tag">{{ i18n.t().hero.currently }}</span>
+        <span class="role-text">
+          <span class="role-rotator">
+            @for (role of i18n.t().hero.roles; track role; let i = $index) {
+              <span class="role-word" [class.is-active]="i === roleIdx()">{{ role }}</span>
+            }
+          </span>
+          <span> {{ i18n.t().hero.atCo }} <em>Six&#8209;Factor</em></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="hero__tag reveal-up" [class.is-in]="phase() >= 3">
+      <p class="lede" [innerHTML]="i18n.t().hero.lede"></p>
+    </div>
+  </div>
+
+  <div class="hero__foot reveal" [class.is-in]="phase() >= 4">
+    <span class="mono small">{{ i18n.t().hero.scroll }}</span>
+    <span class="hero__rule" aria-hidden="true"><span class="hero__rule-fill"></span></span>
+    <span class="mono small">{{ i18n.t().hero.pageOf }}</span>
+  </div>
+</section>

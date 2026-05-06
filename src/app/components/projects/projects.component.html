@@ -1,0 +1,40 @@
+<section class="pp reveal-section" id="projects" data-screen-label="04 Personal Projects">
+  <header class="section-head">
+    <span class="mono small num">{{ i18n.t().projects.num }}</span>
+    <span class="mono small label">{{ i18n.t().projects.label }}</span>
+    <span class="section-head__rule"></span>
+  </header>
+
+  <h2 class="pp__title display" [innerHTML]="i18n.t().projects.title"></h2>
+  <p class="mono small pp__hint">{{ i18n.t().projects.hint }}</p>
+
+  <ul class="pp__grid">
+    @for (p of projects; track p.id; let i = $index) {
+      <li class="pp-card">
+        <div class="pp-card__cover" aria-hidden="true">
+          <span class="pp-card__glyph">{{ p.glyph }}</span>
+          <span class="pp-card__cover-label mono small">{{ p.id.toUpperCase() }}</span>
+          <span class="pp-card__cover-corner mono small">№ {{ padNum(i) }}</span>
+        </div>
+        <div class="pp-card__body">
+          <div class="pp-card__head">
+            <span class="mono small pp-card__period">{{ p.period[i18n.lang()] }}</span>
+            <h3 class="pp-card__name">{{ getName(p) }}</h3>
+            <span class="mono small pp-card__type">{{ p.type[i18n.lang()] }}</span>
+          </div>
+          <p class="pp-card__blurb">{{ p.blurb[i18n.lang()] }}</p>
+          <div class="pp-card__foot">
+            <div class="pp-card__stack">
+              @for (s of p.stack; track s) {
+                <span class="chip mono">{{ s }}</span>
+              }
+            </div>
+            @if (p.affiliation) {
+              <span class="mono small pp-card__aff">↳ {{ p.affiliation[i18n.lang()] }}</span>
+            }
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,37 @@
+<section class="about reveal-section" id="about" data-screen-label="02 About">
+  <header class="section-head">
+    <span class="mono small num">{{ i18n.t().about.num }}</span>
+    <span class="mono small label">{{ i18n.t().about.label }}</span>
+    <span class="section-head__rule"></span>
+  </header>
+
+  <div class="about__grid">
+    <h2 class="about__title display" [innerHTML]="i18n.t().about.title"></h2>
+
+    <div class="about__portrait" #portrait>
+      <div class="about__portrait-frame">
+        <img src="assets/portrait.png" alt="Ruben Severino"
+             [style.transform]="'translateY(' + scrollY() + 'px) scale(1.08)'" />
+      </div>
+      <div class="about__portrait-meta">
+        <span class="mono small">{{ i18n.t().about.portraitMeta[0] }}</span>
+        <span class="mono small">{{ i18n.t().about.portraitMeta[1] }}</span>
+      </div>
+    </div>
+
+    <div class="about__body">
+      <p class="reveal-text" [innerHTML]="i18n.t().about.p1"></p>
+      <p class="reveal-text" [innerHTML]="i18n.t().about.p2"></p>
+      <p class="reveal-text" [innerHTML]="i18n.t().about.p3"></p>
+    </div>
+
+    <aside class="about__facts">
+      @for (fact of i18n.t().about.facts; track fact[0]) {
+        <div class="fact">
+          <span class="mono small">{{ fact[0] }}</span>
+          <span class="fact__v">{{ fact[1] }}</span>
+        </div>
+      }
+    </aside>
+  </div>
+</section>

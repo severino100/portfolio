@@ -1,0 +1,38 @@
+<div class="page-mask" [class.is-loaded]="loaded()"></div>
+
+<app-cursor />
+<app-nav />
+
+<main class="page">
+  <div class="page__section">
+    <app-hero />
+  </div>
+
+  <div class="page__section reveal-section" id="about">
+    <app-about />
+  </div>
+
+  <div class="page__section reveal-section" id="work">
+    <app-work />
+  </div>
+
+  <div class="page__section reveal-section" id="projects">
+    <app-projects />
+  </div>
+
+  <div class="interlude reveal-section">
+    <p class="display italic interlude__text">{{ i18n.t().interlude }}</p>
+  </div>
+
+  <div class="page__section reveal-section" id="life">
+    <app-life />
+  </div>
+
+  <div class="page__section reveal-section" id="skills">
+    <app-skills />
+  </div>
+
+  <div class="page__section">
+    <app-footer />
+  </div>
+</main>

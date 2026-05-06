@@ -1,0 +1,90 @@
+.page-mask {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 200;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 600ms ease;
+  &.is-loaded { opacity: 0; }
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.page__section { width: 100%; }
+
+/* ── Section header ─────────────────────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.section-head__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ── Reveal animation ───────────────────────────────────────────────── */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  &.is-visible { opacity: 1; transform: none; }
+}
+
+/* ── Interlude ──────────────────────────────────────────────────────── */
+.interlude {
+  padding: 100px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin: 20px 0;
+}
+.interlude__text {
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: 1.1;
+  max-width: 900px;
+  margin: 0;
+  color: var(--ink);
+}
+
+/* ── Chips ──────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Lang toggle ────────────────────────────────────────────────────── */
+.lang-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  padding: 4px 8px;
+  transition: color 200ms;
+  &:hover { color: var(--ink); }
+}
+
+@media (max-width: 900px) {
+  .page { padding: 0 24px; }
+}
+
+@media (max-width: 600px) {
+  .page { padding: 0 16px; }
+  .interlude { padding: 60px 0; }
+}
