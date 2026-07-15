@@ -1,6 +1,7 @@
-import { Component, inject, signal, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
+import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from './core/i18n.service';
+import { ThemeService } from './core/theme.service';
 import { CursorComponent } from './components/cursor/cursor.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HeroComponent } from './components/hero/hero.component';
@@ -28,16 +29,17 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit, OnDestroy, AfterViewInit {
   readonly i18n = inject(I18nService);
+  readonly themeService = inject(ThemeService);
   readonly loaded = signal(false);
-  readonly theme = signal<'light' | 'dark'>('dark');
 
   private observer!: IntersectionObserver;
 
   ngOnInit() {
-    document.documentElement.setAttribute('data-theme', this.theme());
+    document.documentElement.setAttribute('data-theme', this.themeService.theme());
     setTimeout(() => this.loaded.set(true), 80);
   }
 
@@ -47,11 +49,6 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.observer?.disconnect();
-  }
-
-  toggleTheme() {
-    this.theme.update(t => t === 'dark' ? 'light' : 'dark');
-    document.documentElement.setAttribute('data-theme', this.theme());
   }
 
   private setupReveal() {

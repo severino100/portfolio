@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, ViewChild, AfterViewInit, OnDestroy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
+import { prefersReducedMotion } from '../../core/reduced-motion';
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +9,7 @@ import { I18nService } from '../../core/i18n.service';
   imports: [CommonModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements AfterViewInit, OnDestroy {
   readonly i18n = inject(I18nService);
@@ -25,6 +27,9 @@ export class FooterComponent implements AfterViewInit, OnDestroy {
     this.tr.set(dist < max ? { x: dx * (1 - dist / max) * 0.25, y: dy * (1 - dist / max) * 0.25 } : { x: 0, y: 0 });
   };
 
-  ngAfterViewInit() { window.addEventListener('mousemove', this.onMove); }
+  ngAfterViewInit() {
+    if (prefersReducedMotion()) return;
+    window.addEventListener('mousemove', this.onMove);
+  }
   ngOnDestroy() { window.removeEventListener('mousemove', this.onMove); }
 }

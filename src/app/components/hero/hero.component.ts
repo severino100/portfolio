@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, inject, signal, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
+import { prefersReducedMotion } from '../../core/reduced-motion';
 
 @Component({
   selector: 'app-hero',
@@ -8,6 +9,7 @@ import { I18nService } from '../../core/i18n.service';
   imports: [CommonModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroComponent implements OnInit, OnDestroy {
   readonly i18n = inject(I18nService);
@@ -40,6 +42,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   @HostListener('window:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
+    if (prefersReducedMotion()) return;
     const el = document.querySelector('.hero') as HTMLElement;
     if (!el) return;
     const r = el.getBoundingClientRect();

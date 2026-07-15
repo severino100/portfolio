@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy, inject, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, OnDestroy, inject, signal, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { SKILL_GROUPS, LANGUAGES, SkillItem, LangItem } from '../../core/data/skills.data';
@@ -9,13 +9,14 @@ import { SKILL_GROUPS, LANGUAGES, SkillItem, LangItem } from '../../core/data/sk
   imports: [CommonModule],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkillsComponent implements AfterViewInit, OnDestroy {
   readonly i18n = inject(I18nService);
   readonly groups = SKILL_GROUPS;
   readonly langs = LANGUAGES;
 
-  barLevels = new Map<string, number>();
+  readonly barLevels = signal(new Map<string, number>());
   private observers: IntersectionObserver[] = [];
 
   @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
@@ -30,7 +31,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
           if (e.isIntersecting) {
             setTimeout(() => {
               const pct = typeof item.level === 'number' ? item.level : (item as LangItem).pct;
-              this.barLevels = new Map(this.barLevels).set(item.name, pct);
+              this.barLevels.update(levels => new Map(levels).set(item.name, pct));
             }, 80);
             io.disconnect();
           }
@@ -43,6 +44,6 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() { this.observers.forEach(o => o.disconnect()); }
 
-  getLevel(name: string) { return this.barLevels.get(name) ?? 0; }
+  getLevel(name: string) { return this.barLevels().get(name) ?? 0; }
   ticks = Array.from({ length: 24 });
 }

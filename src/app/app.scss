@@ -78,7 +78,11 @@
   padding: 4px 8px;
   transition: color 200ms;
   &:hover { color: var(--ink); }
+
+  span { color: var(--muted); transition: color 200ms; }
+  span.is-active { color: var(--ink); }
 }
+.lang-toggle__sep { padding: 0 2px; color: var(--muted); }
 
 @media (max-width: 900px) {
   .page { padding: 0 24px; }

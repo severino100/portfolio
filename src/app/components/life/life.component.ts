@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { HOBBIES, ACADEMY } from '../../core/data/life.data';
@@ -9,6 +9,7 @@ import { HOBBIES, ACADEMY } from '../../core/data/life.data';
   imports: [CommonModule],
   templateUrl: './life.component.html',
   styleUrl: './life.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LifeComponent {
   readonly i18n = inject(I18nService);

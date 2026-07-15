@@ -1,0 +1,31 @@
+:host {
+  display: contents;
+}
+
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 999;
+  mix-blend-mode: difference;
+  display: none;
+}
+
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  transition: width 200ms ease, height 200ms ease, border-radius 200ms ease;
+
+  &.is-active { width: 52px; height: 52px; }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-dot, .cursor-ring { display: block; }
+}

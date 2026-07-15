@@ -14,6 +14,11 @@
       <span class="lang-toggle__sep">/</span>
       <span [class.is-active]="i18n.lang() === 'pt'">PT</span>
     </button>
+    <button class="lang-toggle mono small" (click)="toggleTheme()" aria-label="Toggle theme">
+      <span [class.is-active]="themeService.theme() === 'dark'">DARK</span>
+      <span class="lang-toggle__sep">/</span>
+      <span [class.is-active]="themeService.theme() === 'light'">LIGHT</span>
+    </button>
   </div>
 
   <button class="nav-burger" [class.is-open]="menuOpen()" (click)="toggleMenu()" aria-label="Toggle menu" [attr.aria-expanded]="menuOpen()">
@@ -36,11 +41,18 @@
     </a>
   </nav>
   <div class="mobile-nav__foot">
-    <button class="lang-toggle mono small" (click)="toggleLang()" aria-label="Toggle language">
-      <span [class.is-active]="i18n.lang() === 'en'">EN</span>
-      <span class="lang-toggle__sep">/</span>
-      <span [class.is-active]="i18n.lang() === 'pt'">PT</span>
-    </button>
+    <div class="mobile-nav__toggles">
+      <button class="lang-toggle mono small" (click)="toggleLang()" aria-label="Toggle language">
+        <span [class.is-active]="i18n.lang() === 'en'">EN</span>
+        <span class="lang-toggle__sep">/</span>
+        <span [class.is-active]="i18n.lang() === 'pt'">PT</span>
+      </button>
+      <button class="lang-toggle mono small" (click)="toggleTheme()" aria-label="Toggle theme">
+        <span [class.is-active]="themeService.theme() === 'dark'">DARK</span>
+        <span class="lang-toggle__sep">/</span>
+        <span [class.is-active]="themeService.theme() === 'light'">LIGHT</span>
+      </button>
+    </div>
     <span class="mobile-nav__copy">RS · 2026</span>
   </div>
 </div>

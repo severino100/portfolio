@@ -72,6 +72,7 @@ nav {
 .mobile-nav__num { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; width: 24px; }
 .mobile-nav__label { font-family: var(--serif); font-size: clamp(28px, 9vw, 42px); font-style: italic; line-height: 1; }
 .mobile-nav__foot { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; }
+.mobile-nav__toggles { display: flex; align-items: center; gap: 16px; }
 .mobile-nav__copy { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
 
 @media (max-width: 600px) {

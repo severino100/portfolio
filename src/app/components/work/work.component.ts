@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { WORK, WorkEntry } from '../../core/data/work.data';
@@ -9,6 +9,7 @@ import { WORK, WorkEntry } from '../../core/data/work.data';
   imports: [CommonModule],
   templateUrl: './work.component.html',
   styleUrl: './work.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkComponent {
   readonly i18n = inject(I18nService);
