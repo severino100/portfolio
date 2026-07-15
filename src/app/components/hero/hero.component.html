@@ -5,15 +5,6 @@
     <span class="mono small">{{ i18n.t().hero.location }}</span>
   </div>
 
-  <div class="hero__portrait" [class.is-in]="phase() >= 1">
-    <div class="hero__portrait-inner" [style.transform]="'translate(' + (mouseX() * 10) + 'px, ' + (mouseY() * 8) + 'px)'">
-      <div class="photo-frame">
-        <img src="assets/portrait-2.png" alt="Ruben Severino" />
-      </div>
-      <span class="photo-frame__cap mono">№ 02 · portrait-2.png</span>
-    </div>
-  </div>
-
   <div class="hero__stack">
     <div class="reveal" [class.is-in]="phase() >= 1">
       <h1 class="display hero__name" [style.transform]="'translate(' + (mouseX() * -8) + 'px, ' + (mouseY() * -6) + 'px)'">
