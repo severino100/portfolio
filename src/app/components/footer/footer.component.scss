@@ -3,9 +3,20 @@
 .foot__grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: end; padding-bottom: 60px; border-bottom: 1px solid var(--line); }
 .foot__big { font-size: clamp(64px, 12vw, 200px); line-height: 0.9; }
 .foot__contact { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
-.foot__mail { font-family: var(--serif); font-size: clamp(18px, 2.4vw, 30px); color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); word-break: break-all; max-width: 100%; &:hover { color: var(--accent); border-color: var(--accent); } }
+.foot__mail {
+  font-family: var(--serif); font-size: clamp(18px, 2.4vw, 30px); color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); word-break: break-all; max-width: 100%;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { color: var(--accent); border-color: var(--accent); }
+  }
+}
 .foot__phone, .foot__link { color: var(--ink-2); }
-.foot__link { text-decoration: none; &:hover { color: var(--accent); } }
+.foot__link {
+  text-decoration: none;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover { color: var(--accent); }
+  }
+}
 .foot__meta { display: flex; justify-content: space-between; padding-top: 24px; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 900px) { .foot__grid { grid-template-columns: 1fr; } .foot__contact { align-items: flex-start; } }

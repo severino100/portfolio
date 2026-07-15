@@ -2,28 +2,35 @@
 
 /* ── Tokens ─────────────────────────────────────────────────────────── */
 :root {
-  --serif: 'DM Serif Display', Georgia, serif;
+  --serif: 'Fraunces', Georgia, serif;
   --sans: 'DM Sans', system-ui, sans-serif;
-  --mono: 'DM Mono', 'Fira Code', monospace;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* light theme (default) */
-  --bg: #f5f3ee;
-  --ink: #1a1714;
-  --ink-2: #4a4540;
-  --muted: #8a8278;
-  --line: #dedad4;
-  --accent: #b05c2e;
-  --surface: #eceae4;
+  /* motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* light theme (default) — cool paper, not warm cream */
+  --bg: #f2f4f8;
+  --ink: #10131a;
+  --ink-2: #454c5c;
+  --muted: #838ba0;
+  --line: #dde1e8;
+  --accent: #1f8f4a;
+  --accent-2: #b5720f;
+  --surface: #e7eaf0;
 }
 
 [data-theme='dark'] {
-  --bg: #141210;
-  --ink: #f0ece4;
-  --ink-2: #b0aa9e;
-  --muted: #706860;
-  --line: #2a2620;
-  --accent: #d4784a;
-  --surface: #1e1c18;
+  /* deep ink-blue, editor-dark — not a warm near-black */
+  --bg: #0b0e14;
+  --ink: #eef1f6;
+  --ink-2: #a8b0c0;
+  --muted: #5b6478;
+  --line: #1c212c;
+  --accent: #5fd97a;
+  --accent-2: #e8a23d;
+  --surface: #11151d;
 }
 
 /* ── Reset & base ───────────────────────────────────────────────────── */
@@ -47,7 +54,10 @@ body {
 
 img, video { display: block; max-width: 100%; }
 a { color: inherit; }
-button { font-family: inherit; cursor: pointer; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+/* Press feedback on every pressable control. Components with their own `transition` shorthand
+   (e.g. .tl__head, .lang-toggle) override this — the scale still applies, just as an instant snap. */
+button:active { transform: scale(0.97); }
 
 /* ── Typography helpers ─────────────────────────────────────────────── */
 em { font-style: italic; }
@@ -68,8 +78,8 @@ em { font-style: italic; }
 
 .small { font-size: 12px; }
 
-.num { color: var(--muted); }
-.label { color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.12em; }
+.path { color: var(--ink-2); }
+.path__prompt { color: var(--accent); }
 
 /* ── Custom cursor ──────────────────────────────────────────────────── */
 /* Only hide the native cursor where our JS-driven replacement actually renders (see cursor.component.scss). */
