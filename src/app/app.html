@@ -18,7 +18,7 @@
 </aside>
 
 <main class="page">
-  <div class="page__section">
+  <div class="page__section" id="hero">
     <app-hero />
   </div>
 
@@ -48,7 +48,16 @@
     <app-skills />
   </div>
 
-  <div class="page__section">
+  <div class="page__section" id="contact">
     <app-footer />
   </div>
 </main>
+
+<div class="section-nav">
+  <button class="section-nav__btn" (click)="goToSection(-1)" [disabled]="isFirstSection()" aria-label="Previous section">
+    <span>↑</span>
+  </button>
+  <button class="section-nav__btn" (click)="goToSection(1)" [disabled]="isLastSection()" aria-label="Next section">
+    <span>↓</span>
+  </button>
+</div>

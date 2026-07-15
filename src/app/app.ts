@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from './core/i18n.service';
 import { ThemeService } from './core/theme.service';
@@ -48,7 +48,10 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
     { id: 'life', num: '04' },
     { id: 'skills', num: '05' },
   ];
-  readonly activeSection = signal('about');
+  readonly sectionIds = ['hero', 'about', 'work', 'projects', 'life', 'skills', 'contact'];
+  readonly activeSection = signal('hero');
+  readonly isFirstSection = computed(() => this.sectionIds.indexOf(this.activeSection()) <= 0);
+  readonly isLastSection = computed(() => this.sectionIds.indexOf(this.activeSection()) >= this.sectionIds.length - 1);
 
   private observer!: IntersectionObserver;
   private sectionObserver!: IntersectionObserver;
@@ -124,9 +127,16 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
       }),
       { rootMargin: '-45% 0px -45% 0px' }
     );
-    this.railSections.forEach(s => {
-      const el = document.getElementById(s.id);
+    this.sectionIds.forEach(id => {
+      const el = document.getElementById(id);
       if (el) this.sectionObserver.observe(el);
     });
+  }
+
+  goToSection(delta: number) {
+    const idx = this.sectionIds.indexOf(this.activeSection());
+    const nextIdx = Math.min(Math.max(idx + delta, 0), this.sectionIds.length - 1);
+    const el = document.getElementById(this.sectionIds[nextIdx]);
+    el?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   }
 }

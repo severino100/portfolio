@@ -77,6 +77,36 @@
   .page { margin: 0 auto 0 64px; }
 }
 
+/* ── Section nav (click through sections) ─────────────────────────────── */
+.section-nav {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+}
+.section-nav__btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  color: var(--ink-2);
+  font-size: 15px;
+  transition: color 200ms, background-color 200ms;
+  &:first-child { border-bottom: 1px solid var(--line); }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) { color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  }
+  &:disabled { color: var(--line); cursor: default; }
+}
+
+@media (max-width: 600px) {
+  .section-nav { right: 16px; bottom: 16px; }
+  .section-nav__btn { width: 36px; height: 36px; }
+}
+
 /* ── Section header ─────────────────────────────────────────────────── */
 .section-head {
   display: flex;
