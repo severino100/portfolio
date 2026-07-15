@@ -33,9 +33,32 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Only widen the reading column on genuinely spacious viewports —
+   the fluid formula below assumes desktop-scale gutters and would
+   crush the layout if applied under ~1280px. */
+@media (min-width: 1280px) {
+  .page { max-width: min(1680px, 100vw - 160px); }
 }
 
 .page__section { width: 100%; }
+
+/* ── Full-bleed background grid ────────────────────────────────────────
+   Fixed, edge-to-edge column guides behind the whole page — the canvas
+   the reading column sits inside, not just decoration for one section. */
+.page-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: 1fr;
+  pointer-events: none;
+}
+.page-grid__col { border-left: 1px dashed var(--line); &:last-child { border-right: 1px dashed var(--line); } }
 
 /* ── Left rail ──────────────────────────────────────────────────────── */
 .rail {
@@ -49,6 +72,7 @@
   justify-content: center;
   gap: 28px;
   border-right: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
 }
 .rail__dot {
   position: relative;
@@ -74,7 +98,6 @@
 
 @media (min-width: 1440px) {
   .rail { display: flex; }
-  .page { margin: 0 auto 0 64px; }
 }
 
 /* ── Section nav (click through sections) ─────────────────────────────── */

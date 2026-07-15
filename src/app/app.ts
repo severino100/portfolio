@@ -48,6 +48,8 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
     { id: 'life', num: '04' },
     { id: 'skills', num: '05' },
   ];
+  readonly gridCols = Array.from({ length: 16 });
+
   readonly sectionIds = ['hero', 'about', 'work', 'projects', 'life', 'skills', 'contact'];
   readonly activeSection = signal('hero');
   readonly isFirstSection = computed(() => this.sectionIds.indexOf(this.activeSection()) <= 0);
