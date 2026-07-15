@@ -1,7 +1,7 @@
 .foot { border-top: 1px solid var(--line); margin-top: 40px; padding: 80px 0 40px; }
 .foot__pretitle { color: var(--muted); margin-bottom: 24px; }
 .foot__grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: end; padding-bottom: 60px; border-bottom: 1px solid var(--line); }
-.foot__big { font-size: clamp(64px, 12vw, 200px); line-height: 0.9; }
+.foot__big { font-size: clamp(44px, 8vw, 132px); line-height: 0.95; }
 .foot__contact { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
 .foot__mail {
   font-family: var(--serif); font-size: clamp(18px, 2.4vw, 30px); color: var(--ink); text-decoration: none;

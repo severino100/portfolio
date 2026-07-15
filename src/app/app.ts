@@ -41,7 +41,17 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
   readonly typedLines = signal<string[]>(this.bootLines.map(() => ''));
   readonly bootDone = signal(false);
 
+  readonly railSections = [
+    { id: 'about', num: '01' },
+    { id: 'work', num: '02' },
+    { id: 'projects', num: '03' },
+    { id: 'life', num: '04' },
+    { id: 'skills', num: '05' },
+  ];
+  readonly activeSection = signal('about');
+
   private observer!: IntersectionObserver;
+  private sectionObserver!: IntersectionObserver;
   private bootTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit() {
@@ -51,10 +61,12 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.setupReveal();
+    this.setupSectionSpy();
   }
 
   ngOnDestroy() {
     this.observer?.disconnect();
+    this.sectionObserver?.disconnect();
     clearTimeout(this.bootTimer);
   }
 
@@ -71,7 +83,7 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
     const tick = () => {
       if (line >= this.bootLines.length) {
         this.bootDone.set(true);
-        this.bootTimer = setTimeout(() => this.loaded.set(true), 400);
+        this.bootTimer = setTimeout(() => this.loaded.set(true), 250);
         return;
       }
       const text = this.bootLines[line];
@@ -84,12 +96,12 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
       if (char >= text.length) {
         line++;
         char = 0;
-        this.bootTimer = setTimeout(tick, 260);
+        this.bootTimer = setTimeout(tick, 140);
       } else {
-        this.bootTimer = setTimeout(tick, 16 + Math.random() * 28);
+        this.bootTimer = setTimeout(tick, 8 + Math.random() * 14);
       }
     };
-    this.bootTimer = setTimeout(tick, 200);
+    this.bootTimer = setTimeout(tick, 120);
   }
 
   private setupReveal() {
@@ -103,5 +115,18 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
       { threshold: 0.08 }
     );
     document.querySelectorAll('.reveal-section').forEach(el => this.observer.observe(el));
+  }
+
+  private setupSectionSpy() {
+    this.sectionObserver = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) this.activeSection.set(e.target.id);
+      }),
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+    this.railSections.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el) this.sectionObserver.observe(el);
+    });
   }
 }

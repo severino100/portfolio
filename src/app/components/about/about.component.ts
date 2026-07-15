@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, ElementRef, OnInit, OnDestroy, View
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { prefersReducedMotion } from '../../core/reduced-motion';
+import { TypewriterDirective } from '../../core/typewriter.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TypewriterDirective],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

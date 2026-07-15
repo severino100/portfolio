@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, ElementRef, ViewChild, AfterViewIni
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { prefersReducedMotion } from '../../core/reduced-motion';
+import { TypewriterDirective } from '../../core/typewriter.directive';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TypewriterDirective],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

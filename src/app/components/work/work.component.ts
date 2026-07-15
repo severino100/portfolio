@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { WORK, WorkEntry } from '../../core/data/work.data';
+import { TypewriterDirective } from '../../core/typewriter.directive';
 
 @Component({
   selector: 'app-work',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TypewriterDirective],
   templateUrl: './work.component.html',
   styleUrl: './work.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

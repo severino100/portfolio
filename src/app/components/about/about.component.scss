@@ -4,7 +4,7 @@
   grid-template-areas: "title title" "body portrait" "facts portrait";
   gap: 64px 80px;
 }
-.about__title { grid-area: title; font-size: clamp(52px, 8vw, 120px); margin: 0 0 32px; text-wrap: balance; }
+.about__title { grid-area: title; font-size: clamp(36px, 5.5vw, 84px); margin: 0 0 32px; text-wrap: balance; }
 .about__body { grid-area: body; font-size: 18px; line-height: 1.7; color: var(--ink-2); }
 .about__portrait { grid-area: portrait; align-self: start; position: sticky; top: 80px; }
 .about__portrait-frame { aspect-ratio: 4/5; overflow: hidden; background: var(--surface); position: relative; }

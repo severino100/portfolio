@@ -1,5 +1,5 @@
 .pp { padding: 100px 0 60px; }
-.pp__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 16px; line-height: 1; }
+.pp__title { font-size: clamp(36px, 5.5vw, 84px); margin: 0 0 16px; line-height: 1.05; }
 .pp__hint { color: var(--muted); margin: 0 0 56px; }
 
 .pp__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }

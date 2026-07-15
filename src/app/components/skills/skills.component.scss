@@ -1,5 +1,5 @@
 .skills { padding: 100px 0 120px; }
-.skills__title { font-size: clamp(52px, 8vw, 120px); margin: 0 0 56px; }
+.skills__title { font-size: clamp(36px, 5.5vw, 84px); margin: 0 0 56px; }
 .skills__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 56px 80px; }
 .skill-group__head { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 24px; gap: 16px; }
 .skill-group__title { font-family: var(--serif); font-size: 26px; margin: 0; font-weight: 400; }

@@ -9,6 +9,14 @@
 <app-cursor />
 <app-nav />
 
+<aside class="rail" aria-hidden="true">
+  @for (s of railSections; track s.id) {
+    <a class="rail__dot" [href]="'#' + s.id" [class.is-active]="activeSection() === s.id">
+      <span class="rail__num mono">{{ s.num }}</span>
+    </a>
+  }
+</aside>
+
 <main class="page">
   <div class="page__section">
     <app-hero />
@@ -27,7 +35,9 @@
   </div>
 
   <div class="interlude reveal-section">
-    <p class="display italic interlude__text">{{ i18n.t().interlude }}</p>
+    <p class="mono small interlude__pre">{{ i18n.t().interlude.pre }}</p>
+    <p class="display italic interlude__text" [innerHTML]="i18n.t().interlude.quote"></p>
+    <p class="mono small interlude__sig">{{ i18n.t().interlude.sig }}</p>
   </div>
 
   <div class="page__section reveal-section" id="life">

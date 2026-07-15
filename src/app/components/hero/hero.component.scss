@@ -22,7 +22,7 @@
 .hero__stack { position: relative; display: grid; grid-template-columns: 1fr; gap: 48px; }
 .hero__name { transition: transform 600ms var(--ease-out); }
 
-.display__line { display: block; font-size: clamp(80px, 16vw, 240px); line-height: 0.86; }
+.display__line { display: block; font-size: clamp(56px, 10vw, 160px); line-height: 0.9; }
 .dot { color: var(--accent); }
 
 .letters .letter {

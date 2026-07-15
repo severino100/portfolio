@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, ElementRef, OnDestroy, inject, sign
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { SKILL_GROUPS, LANGUAGES, SkillItem, LangItem } from '../../core/data/skills.data';
+import { TypewriterDirective } from '../../core/typewriter.directive';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TypewriterDirective],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
