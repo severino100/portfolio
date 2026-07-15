@@ -5,8 +5,28 @@
   z-index: 200;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 600ms ease;
+  display: grid;
+  place-items: center;
+  transition: opacity 500ms var(--ease-in-out);
   &.is-loaded { opacity: 0; }
+}
+.boot {
+  min-width: 280px;
+  color: var(--ink-2);
+}
+.boot__line {
+  min-height: 1.7em;
+  white-space: pre;
+  &:last-child { color: var(--accent); }
+}
+.boot__cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  margin-left: 2px;
+  vertical-align: middle;
+  background: var(--accent);
+  animation: cursor-blink 1.1s steps(1) infinite;
 }
 
 .page {

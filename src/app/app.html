@@ -1,4 +1,10 @@
-<div class="page-mask" [class.is-loaded]="loaded()"></div>
+<div class="page-mask" [class.is-loaded]="loaded()">
+  <div class="boot mono small" aria-hidden="true">
+    @for (line of typedLines(); track $index; let last = $last) {
+      <div class="boot__line">{{ line }}@if (last && !bootDone()) {<span class="boot__cursor"></span>}</div>
+    }
+  </div>
+</div>
 
 <app-cursor />
 <app-nav />

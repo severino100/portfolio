@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I18nService } from '../../core/i18n.service';
 import { PERSONAL_PROJECTS } from '../../core/data/life.data';
+import { TiltDirective } from '../../core/tilt.directive';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TiltDirective],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

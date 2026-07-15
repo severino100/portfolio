@@ -5,7 +5,12 @@
 .skill-group__title { font-family: var(--serif); font-size: 26px; margin: 0; font-weight: 400; }
 .skill-group__items { display: flex; flex-direction: column; gap: 18px; }
 
-.skill { display: grid; gap: 10px; }
+.skill {
+  display: grid; gap: 10px;
+  opacity: 0; transform: translateX(-10px);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  &.is-revealed { opacity: 1; transform: none; }
+}
 .skill__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
 .skill__name { font-size: 16px; flex: 1; min-width: 0; }
 .skill__years { color: var(--muted); flex-shrink: 0; white-space: nowrap; }

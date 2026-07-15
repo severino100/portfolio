@@ -9,7 +9,7 @@
 
   <ul class="pp__grid">
     @for (p of projects; track p.id; let i = $index) {
-      <li class="pp-card">
+      <li class="pp-card" appTilt>
         <div class="pp-card__cover" aria-hidden="true">
           <span class="pp-card__glyph">{{ p.glyph }}</span>
           <span class="pp-card__cover-label mono small">{{ p.id.toUpperCase() }}</span>

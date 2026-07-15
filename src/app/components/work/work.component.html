@@ -28,8 +28,8 @@
           <div class="tl__body-inner">
             <p class="tl__blurb">{{ entry.blurb[i18n.lang()] }}</p>
             <ul class="tl__projects">
-              @for (proj of entry.projects; track proj.client) {
-                <li class="proj">
+              @for (proj of entry.projects; track proj.client; let pi = $index) {
+                <li class="proj" [style.transition-delay]="(pi * 70) + 'ms'">
                   <div class="proj__logo">
                     @if (proj.logo) {
                       <img [src]="proj.logo" [alt]="proj.client" />

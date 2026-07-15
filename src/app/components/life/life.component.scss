@@ -27,7 +27,7 @@
   transition: border-color 250ms, transform 350ms var(--ease-out);
   &::before { content: '↳'; font-family: var(--serif); font-size: 30px; position: absolute; right: 24px; top: 22px; color: var(--muted); transition: transform 400ms var(--ease-out), color 250ms; }
   @media (hover: hover) and (pointer: fine) {
-    &:hover { border-color: var(--ink); transform: translateY(-4px); }
+    &:hover { border-color: var(--ink); }
     &:hover::before { transform: rotate(-12deg); color: var(--ink); }
   }
 }

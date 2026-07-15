@@ -15,7 +15,7 @@
         </div>
         <div class="skill-group__items">
           @for (item of group.items; track item.name) {
-            <div class="skill" #skillBar>
+            <div class="skill" [class.is-revealed]="getLevel(item.name) > 0" #skillBar>
               <div class="skill__head">
                 <span class="skill__name">{{ item.name }}</span>
                 <span class="mono small skill__years">{{ item.years }}</span>
@@ -37,7 +37,7 @@
     <span class="mono small">{{ i18n.t().skills.languages }}</span>
     <div class="lang-row">
       @for (lang of langs; track lang.name) {
-        <div class="skill" #skillBar>
+        <div class="skill" [class.is-revealed]="getLevel(lang.name) > 0" #skillBar>
           <div class="skill__head">
             <span class="skill__name">{{ lang.name }}</span>
             <span class="mono small skill__years">{{ lang.level }}</span>

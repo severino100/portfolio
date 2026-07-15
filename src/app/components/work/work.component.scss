@@ -38,7 +38,14 @@
 .tl__blurb { font-family: var(--serif); font-size: clamp(20px, 2vw, 28px); line-height: 1.3; color: var(--ink-2); margin: 0 0 32px; max-width: 60ch; padding-left: 220px; }
 .tl__projects { list-style: none; margin: 0 0 32px; padding: 0 0 0 220px; display: grid; gap: 0; }
 
-.proj { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 24px 0; border-top: 1px dashed var(--line); align-items: start; &:first-child { border-top: 0; } }
+.proj {
+  display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 24px 0;
+  border-top: 1px dashed var(--line); align-items: start;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 450ms var(--ease-out), transform 450ms var(--ease-out);
+  &:first-child { border-top: 0; }
+}
+.tl.is-open .proj { opacity: 1; transform: none; }
 .proj__logo { width: 64px; height: 64px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; background: #fff; transition: transform 400ms var(--ease-out); overflow: hidden;
   img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
 }

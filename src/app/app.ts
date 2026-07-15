@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit, OnDestroy, ChangeDetectionStrategy, 
 import { CommonModule } from '@angular/common';
 import { I18nService } from './core/i18n.service';
 import { ThemeService } from './core/theme.service';
+import { prefersReducedMotion } from './core/reduced-motion';
 import { CursorComponent } from './components/cursor/cursor.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HeroComponent } from './components/hero/hero.component';
@@ -36,11 +37,16 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
   readonly themeService = inject(ThemeService);
   readonly loaded = signal(false);
 
+  readonly bootLines = ['$ git checkout ruben-severino', '$ npm run build --prod', '✓ ready in 428ms'];
+  readonly typedLines = signal<string[]>(this.bootLines.map(() => ''));
+  readonly bootDone = signal(false);
+
   private observer!: IntersectionObserver;
+  private bootTimer?: ReturnType<typeof setTimeout>;
 
   ngOnInit() {
     document.documentElement.setAttribute('data-theme', this.themeService.theme());
-    setTimeout(() => this.loaded.set(true), 80);
+    this.runBoot();
   }
 
   ngAfterViewInit() {
@@ -49,6 +55,41 @@ export class App implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.observer?.disconnect();
+    clearTimeout(this.bootTimer);
+  }
+
+  private runBoot() {
+    if (prefersReducedMotion()) {
+      this.typedLines.set([...this.bootLines]);
+      this.bootDone.set(true);
+      this.bootTimer = setTimeout(() => this.loaded.set(true), 150);
+      return;
+    }
+
+    let line = 0;
+    let char = 0;
+    const tick = () => {
+      if (line >= this.bootLines.length) {
+        this.bootDone.set(true);
+        this.bootTimer = setTimeout(() => this.loaded.set(true), 400);
+        return;
+      }
+      const text = this.bootLines[line];
+      char++;
+      this.typedLines.update(lines => {
+        const next = [...lines];
+        next[line] = text.slice(0, char);
+        return next;
+      });
+      if (char >= text.length) {
+        line++;
+        char = 0;
+        this.bootTimer = setTimeout(tick, 260);
+      } else {
+        this.bootTimer = setTimeout(tick, 16 + Math.random() * 28);
+      }
+    };
+    this.bootTimer = setTimeout(tick, 200);
   }
 
   private setupReveal() {
